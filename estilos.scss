@@ -1,0 +1,414 @@
+/* =========================
+   FigiKhan • estilos.scss
+   Paleta dorados + fondo blanco, UI moderna y responsive
+   ========================= */
+:root {
+  --gold: #c9a227;       // dorado principal
+  --gold-soft: #e8d37a;  // dorado suave
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --bg: #ffffff;
+  --card: #fafafa;
+  --border: #e5e7eb;
+
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0,0,0,.08);
+  --header-h: 96px;
+}
+
+/* Tipografía: moderna, legible, sin forzar mayúsculas */
+@font-face {
+  font-family: "PlusJakarta";
+  font-weight: 400;
+  font-style: normal;
+  src: local("PlusJakartaSans-Regular");
+}
+/* Fallbacks del sistema si no está la fuente anterior */
+$font-stack: "PlusJakarta", "Inter", "Poppins", "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+
+/* Breakpoints */
+$md: 768px;
+$lg: 1024px;
+
+/* Utilidades */
+@mixin container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+}
+
+/* Reset mínimo */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: $font-stack;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Links base */
+a {
+  color: var(--text);
+  text-decoration: none;
+  text-transform: none; // no evadir imprenta minúscula
+}
+a:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* ========================
+   Header
+   ======================== */
+.site-header {
+  height: var(--header-h);
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to bottom, #fff, #fff) no-repeat;
+  border-bottom: 1px solid var(--border);
+
+  .logo {
+    max-height: calc(var(--header-h) - 24px);
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,.05));
+  }
+}
+
+/* ========================
+   Contenedor principal
+   ======================== */
+.main-container { @include container; padding-block: 28px; }
+
+/* ========================
+   Grid de enlaces (tarjetas pequeñas)
+   ======================== */
+.grid-enlaces {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); // más pequeñas
+  gap: 14px;
+  margin-bottom: 28px;
+
+  .enlace {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 14px 10px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    text-align: center;
+
+    span {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: .2px;
+    }
+
+    .img-hover {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      margin-top: 8px;
+      transition: transform .2s ease;
+    }
+
+    &.active,
+    &:hover {
+      border-color: var(--gold);
+      box-shadow: 0 10px 24px rgba(201,162,39,.18);
+      transform: translateY(-2px);
+
+      .img-hover { transform: scale(1.04); }
+    }
+  }
+}
+
+/* ========================
+   Promo
+   ======================== */
+.promo {
+  @include container;
+  margin-bottom: 28px;
+
+  .promo-img {
+    width: 100%;
+    height: clamp(180px, 28vw, 360px);
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+  }
+}
+
+/* ========================
+   Planes / Cards
+   ======================== */
+.planes {
+  .planes-title {
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    margin: 6px 0 16px;
+    color: var(--text);
+  }
+
+  .planes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .plan-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 10px;
+
+    h3 { margin: 0; font-size: 1.1rem; }
+    ul { margin: 0; padding-left: 18px; color: var(--muted); }
+    li { margin: 4px 0; }
+
+    .btn-vermas {
+      justify-self: start;
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--gold);
+      color: var(--text);
+      background: linear-gradient(180deg, #fff, #fff);
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+
+      &:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(201,162,39,.25); background: #fff7da; }
+      &:active { transform: translateY(0); }
+    }
+  }
+}
+
+/* ========================
+   Paginas realizadas (plan grande + minis)
+   ======================== */
+.plan-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(16px, 2.2vw, 22px);
+  box-shadow: var(--shadow);
+  margin-bottom: 22px;
+
+  .badge {
+    display: inline-block;
+    font-size: .8rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #fff7da;
+    border: 1px solid var(--gold);
+    color: var(--text);
+  }
+
+  .title { margin: 10px 0 6px; font-size: clamp(1.2rem, 3vw, 1.8rem); }
+  .subtitle { margin: 0 0 10px; color: var(--muted); }
+
+  .price {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 6px 0 10px;
+    .currency { color: var(--gold); font-weight: 700; }
+    .amount { font-size: 1.6rem; font-weight: 800; }
+    .suffix { color: var(--muted); font-weight: 600; }
+  }
+
+  .features { margin: 10px 0; padding-left: 18px; color: var(--muted); }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+
+      &.btn-primary {
+        border-color: var(--gold);
+        background: linear-gradient(180deg, #fff7da, #ffe9a8);
+        &:hover { box-shadow: 0 10px 24px rgba(201,162,39,.25); transform: translateY(-1px); }
+      }
+      &.btn-ghost {
+        background: #fff;
+        &:hover { background: #fff7da; border-color: var(--gold); }
+      }
+    }
+  }
+}
+
+/* Otros planes (mini) */
+.otros-planes {
+  .title-sm { font-size: 1.1rem; margin: 10px 0 14px; }
+  .plans-grid {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .plan-mini {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 10px;
+
+    .mini-head {
+      display: flex; align-items: center; justify-content: space-between;
+      .mini-title { margin: 0; font-size: 1.05rem; }
+      .mini-badge {
+        border: 1px solid var(--gold);
+        background: #fff7da;
+        border-radius: 999px;
+        padding: 2px 8px; font-size: .8rem;
+      }
+    }
+
+    .mini-list { margin: 0; padding-left: 18px; color: var(--muted); }
+
+    .mini-price-row {
+      display: flex; align-items: baseline; gap: 8px; color: var(--muted);
+      .mini-price { font-weight: 800; }
+    }
+
+    .mini-actions {
+      display: flex; gap: 8px; flex-wrap: wrap;
+
+      .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        &.btn-primary {
+          border-color: var(--gold);
+          background: linear-gradient(180deg, #fff7da, #ffe9a8);
+        }
+        &.btn-ghost { background: #fff; }
+      }
+    }
+  }
+}
+
+/* ========================
+   Ayuda / TOC / Bloques
+   ======================== */
+.ayuda {
+  display: grid;
+  gap: 16px;
+
+  .ayuda-header p { color: var(--muted); }
+
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    box-shadow: var(--shadow);
+
+    h3 { margin: 0 0 8px; }
+    ul { margin: 0; padding-left: 18px; }
+    a { color: var(--text); }
+    a:hover { color: var(--gold); }
+  }
+
+  .ayuda-bloque {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+
+    h3 { margin-top: 0; }
+    .badge {
+      display: inline-block; margin-right: 8px;
+      border: 1px solid var(--gold); background: #fff7da; border-radius: 999px; padding: 2px 8px;
+      font-size: .8rem;
+    }
+    .tip { color: var(--muted); }
+  }
+}
+
+/* ========================
+   Mejoras (tarjetas con precio)
+   ======================== */
+.tarjetas-mejoras {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+
+  .tarjeta {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+
+    img {
+      width: 66px; height: 66px; object-fit: contain; margin-bottom: 8px;
+    }
+    h3 { margin: 6px 0 4px; }
+    p { margin: 0; font-weight: 800; color: var(--gold); }
+
+    &:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 10px 24px rgba(201,162,39,.22); }
+  }
+}
+
+/* ========================
+   Texto extra / card genérica
+   ======================== */
+.texto-extra .card-trabajos {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+/* ========================
+   Footer
+   ======================== */
+.site-footer {
+  margin-top: 32px;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  background: #fff;
+  text-align: center;
+  color: var(--muted);
+
+  a.volver {
+    color: var(--text);
+    border-bottom: 1px dashed var(--gold);
+  }
+}
+
+/* ========================
+   Responsive ajustes
+   ======================== */
+@media (min-width: $md) {
+  .grid-enlaces { gap: 16px; }
+  .planes .planes-grid { gap: 18px; }
+}
+
+@media (min-width: $lg) {
+  .main-container { padding-block: 36px; }
+  .grid-enlaces { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+}
