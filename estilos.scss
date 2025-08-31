@@ -1,42 +1,46 @@
-/* =========================
+/* Le presento el diseño scss de Federico Leonel Figini
    FigiKhan • estilos.scss
-   Paleta dorados + fondo blanco, UI moderna y responsive
-   ========================= */
-:root {
-  --gold: #c9a227;       // dorado principal
-  --gold-soft: #e8d37a;  // dorado suave
-  --text: #1a1a1a;
-  --muted: #6b7280;
-  --bg: #ffffff;
-  --card: #fafafa;
-  --border: #e5e7eb;
+   Tema: dorado + fondo blanco, enlaces elegantes con imagen al hover
+   Archivos HTML cubiertos: index.html, ayuda.html, contactos.html,
+   mejoras.html, pagrealizadas.html
+   -----------------------------------------------------------
+   Animación de fondo (descripción):
+   Un brillo dorado MUY sutil (gradiente radial semitransparente) se
+   desplaza en diagonal por el fondo blanco en un ciclo lento. No hace
+   ruido visual: apenas aporta "vida" a la página.
+   - Implementación: pseudo-elemento fijo + @keyframes diagonal-sheen.
+   - Respetamos prefers-reduced-motion para accesibilidad.
+   ========================================================== */
 
+/* Variables de diseño */
+:root {
+  --gold: #c9a227;        /* Dorado principal */
+  --gold-veil: rgba(201,162,39,0.10); /* Dorado muy tenue para brillos */
+  --text: #1a1a1a;        /* Texto principal */
+  --muted: #6b7280;       /* Texto secundario */
+  --bg: #ffffff;          /* Fondo blanco (lo modifique directamente del css a un tono mas gris)*/
+  --card: #fafafa;        /* Tarjetas suaves */
+  --border: #e5e7eb;      /* Líneas */
   --radius: 14px;
   --shadow: 0 8px 24px rgba(0,0,0,.08);
   --header-h: 96px;
 }
 
-/* Tipografía: moderna, legible, sin forzar mayúsculas */
-@font-face {
-  font-family: "PlusJakarta";
-  font-weight: 400;
-  font-style: normal;
-  src: local("PlusJakartaSans-Regular");
-}
-/* Fallbacks del sistema si no está la fuente anterior */
-$font-stack: "PlusJakarta", "Inter", "Poppins", "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+/* Tipografía: “imprenta minúscula” (no forzamos mayúsculas) */
+$font-stack: "Inter", "Poppins", "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
 
 /* Breakpoints */
+$sm: 480px;
 $md: 768px;
 $lg: 1024px;
 
-/* Utilidades */
+/* Utilidad de contenedor */
 @mixin container {
   width: min(1200px, 92%);
   margin-inline: auto;
 }
 
-/* Reset mínimo */
+/* Reset breve */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
@@ -48,26 +52,52 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Fondo animado sutil
+   - Pseudo-elemento fijo que crea un resplandor dorado muy tenue.
+   - Se mueve en diagonal con un ciclo largo (30s).
+   - Si el usuario prefiere menos movimiento, se desactiva.
+*/
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20% -20%;/* más grande que la ventana */
+  pointer-events: none;
+  background:
+    radial-gradient(30% 30% at 30% 30%, var(--gold-veil), transparent 60%) ,
+    radial-gradient(22% 22% at 80% 10%, rgba(201,162,39,0.06), transparent 55%);
+  animation: diagonal-sheen 30s linear infinite;
+  z-index: 0;/* por detrás del contenido */
+}
+@keyframes diagonal-sheen {
+  0%   { transform: translate3d(-6%, -6%, 0) rotate(0.001deg); }
+  50%  { transform: translate3d( 6%,  6%, 0) rotate(0.001deg); }
+  100% { transform: translate3d(-6%, -6%, 0) rotate(0.001deg); }
+}
+/* Accesibilidad: respeta usuarios con reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
 /* Links base */
 a {
   color: var(--text);
-  text-decoration: none;
-  text-transform: none; // no evadir imprenta minúscula
+  text-decoration: none;       
+  text-transform: none;        
 }
 a:focus-visible {
   outline: 3px solid var(--gold);
   outline-offset: 2px;
 }
 
-/* ========================
-   Header
-   ======================== */
+/*  Header (imagen del logo centrada) */
 .site-header {
   height: var(--header-h);
   display: grid;
   place-items: center;
-  background: linear-gradient(to bottom, #fff, #fff) no-repeat;
+  background: #fff;
   border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1; /* por encima del brillo del fondo */
 
   .logo {
     max-height: calc(var(--header-h) - 24px);
@@ -77,25 +107,31 @@ a:focus-visible {
   }
 }
 
-/* ========================
-   Contenedor principal
-   ======================== */
-.main-container { @include container; padding-block: 28px; }
+/*  Contenedor principal */
+.main-container { @include container; padding-block: 28px; position: relative; z-index: 1; }
 
-/* ========================
-   Grid de enlaces (tarjetas pequeñas)
-   ======================== */
+/* ==========================================================
+   ENLACES (tarjetas): usado en todas las páginas
+   ----------------------------------------------------------
+   - Más bonitos y compactos.
+   - Imagen oculta por defecto; aparece SOLO al hover/focus.
+   - Efectos suaves: elevación, borde dorado y micro-zoom.
+   - En móvil (touch), mostramos imagen al tocar (estado :active).
+   ========================================================== */
 .grid-enlaces {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); // más pequeñas
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* más pequeñas */
   gap: 14px;
   margin-bottom: 28px;
 
   .enlace {
     position: relative;
+    isolation: isolate; /* para pseudo-elementos */
     display: grid;
+    grid-template-rows: auto auto;
     place-items: center;
-    padding: 14px 10px;
+    gap: 8px;
+    padding: 16px 12px;
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -103,35 +139,61 @@ a:focus-visible {
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     text-align: center;
 
+    /* Pequeño brillo al pasar mouse: borde decorativo desde las esquinas */
+    &::before, &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      opacity: 0;
+    }
+    &::before {
+      background:
+        linear-gradient(45deg, rgba(201,162,39,.20), transparent 40%) top left / 50% 50% no-repeat,
+        linear-gradient(-45deg, rgba(201,162,39,.18), transparent 40%) top right / 50% 50% no-repeat,
+        linear-gradient(135deg, rgba(201,162,39,.18), transparent 40%) bottom left / 50% 50% no-repeat,
+        linear-gradient(-135deg, rgba(201,162,39,.20), transparent 40%) bottom right / 50% 50% no-repeat;
+    }
+
     span {
       font-size: .95rem;
       font-weight: 600;
-      color: var(--text);
       letter-spacing: .2px;
+      color: var(--text);
     }
 
+    /* Imagen oculta por defecto */
     .img-hover {
-      width: 64px;
-      height: 64px;
+      width: 68px;
+      height: 68px;
       object-fit: contain;
-      margin-top: 8px;
-      transition: transform .2s ease;
+      opacity: 0;
+      transform: translateY(6px) scale(.94);
+      transition: opacity .2s ease, transform .2s ease;
+      will-change: transform, opacity;
     }
 
+    /* Interacciones: hover/focus/active muestran la imagen */
     &.active,
-    &:hover {
+    &:hover,
+    &:focus-visible,
+    &:active {
       border-color: var(--gold);
-      box-shadow: 0 10px 24px rgba(201,162,39,.18);
       transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(201,162,39,.20);
 
-      .img-hover { transform: scale(1.04); }
+      &::before { opacity: 1; }   /* enciende el “borde de luz” */
+      .img-hover {
+        opacity: 1;
+        transform: translateY(0) scale(1.00);
+      }
     }
   }
 }
 
-/* ========================
-   Promo
-   ======================== */
+/* Promo (index.html) */
 .promo {
   @include container;
   margin-bottom: 28px;
@@ -146,12 +208,10 @@ a:focus-visible {
   }
 }
 
-/* ========================
-   Planes / Cards
-   ======================== */
+/* Planes (index.html) y tarjetas generales */
 .planes {
   .planes-title {
-    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
     margin: 6px 0 16px;
     color: var(--text);
   }
@@ -171,7 +231,7 @@ a:focus-visible {
     display: grid;
     gap: 10px;
 
-    h3 { margin: 0; font-size: 1.1rem; }
+    h3 { margin: 0; font-size: 1.08rem; }
     ul { margin: 0; padding-left: 18px; color: var(--muted); }
     li { margin: 4px 0; }
 
@@ -191,9 +251,7 @@ a:focus-visible {
   }
 }
 
-/* ========================
-   Paginas realizadas (plan grande + minis)
-   ======================== */
+/* Paginas realizadas (plan grande + minis) */
 .plan-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -216,10 +274,7 @@ a:focus-visible {
   .subtitle { margin: 0 0 10px; color: var(--muted); }
 
   .price {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
-    margin: 6px 0 10px;
+    display: inline-flex; align-items: baseline; gap: 6px; margin: 6px 0 10px;
     .currency { color: var(--gold); font-weight: 700; }
     .amount { font-size: 1.6rem; font-weight: 800; }
     .suffix { color: var(--muted); font-weight: 600; }
@@ -228,9 +283,7 @@ a:focus-visible {
   .features { margin: 10px 0; padding-left: 18px; color: var(--muted); }
 
   .actions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    display: flex; gap: 8px; flex-wrap: wrap;
 
     .btn {
       display: inline-block;
@@ -252,9 +305,9 @@ a:focus-visible {
   }
 }
 
-/* Otros planes (mini) */
+/* Otros planes mini (pagrealizadas.html) */
 .otros-planes {
-  .title-sm { font-size: 1.1rem; margin: 10px 0 14px; }
+  .title-sm { font-size: 1.08rem; margin: 10px 0 14px; }
   .plans-grid {
     display: grid;
     gap: 14px;
@@ -272,7 +325,7 @@ a:focus-visible {
 
     .mini-head {
       display: flex; align-items: center; justify-content: space-between;
-      .mini-title { margin: 0; font-size: 1.05rem; }
+      .mini-title { margin: 0; font-size: 1.02rem; }
       .mini-badge {
         border: 1px solid var(--gold);
         background: #fff7da;
@@ -306,9 +359,7 @@ a:focus-visible {
   }
 }
 
-/* ========================
-   Ayuda / TOC / Bloques
-   ======================== */
+/* Ayuda (toc + bloques) */
 .ayuda {
   display: grid;
   gap: 16px;
@@ -345,9 +396,7 @@ a:focus-visible {
   }
 }
 
-/* ========================
-   Mejoras (tarjetas con precio)
-   ======================== */
+/*  Mejoras (tarjetas con precio) */
 .tarjetas-mejoras {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -362,9 +411,7 @@ a:focus-visible {
     box-shadow: var(--shadow);
     transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 
-    img {
-      width: 66px; height: 66px; object-fit: contain; margin-bottom: 8px;
-    }
+    img { width: 66px; height: 66px; object-fit: contain; margin-bottom: 8px; }
     h3 { margin: 6px 0 4px; }
     p { margin: 0; font-weight: 800; color: var(--gold); }
 
@@ -372,9 +419,7 @@ a:focus-visible {
   }
 }
 
-/* ========================
-   Texto extra / card genérica
-   ======================== */
+/* Texto extra / tarjetas genéricas */
 .texto-extra .card-trabajos {
   background: var(--card);
   border: 1px solid var(--border);
@@ -383,9 +428,7 @@ a:focus-visible {
   box-shadow: var(--shadow);
 }
 
-/* ========================
-   Footer
-   ======================== */
+/* Footer */
 .site-footer {
   margin-top: 32px;
   padding: 20px 0;
@@ -394,21 +437,17 @@ a:focus-visible {
   text-align: center;
   color: var(--muted);
 
-  a.volver {
-    color: var(--text);
-    border-bottom: 1px dashed var(--gold);
-  }
+  a.volver { color: var(--text); border-bottom: 1px dashed var(--gold); }
 }
 
-/* ========================
-   Responsive ajustes
-   ======================== */
-@media (min-width: $md) {
+/* Responsive */
+@media (min-width: $sm) {
   .grid-enlaces { gap: 16px; }
+}
+@media (min-width: $md) {
   .planes .planes-grid { gap: 18px; }
 }
-
 @media (min-width: $lg) {
   .main-container { padding-block: 36px; }
-  .grid-enlaces { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .grid-enlaces { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
 }
