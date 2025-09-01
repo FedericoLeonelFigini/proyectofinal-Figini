@@ -3,198 +3,41 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mi Sitio</title>
-  <link rel="stylesheet" href="/estilos.css">
+  <title>Mi Sitio - Trabajos Realizados</title>
+  <link rel="stylesheet" href="../estilos.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="site-header">
-    <img src="/imagenes/logopng.png" alt="Logo" class="logo">
+    <img src="../imagenes/logopng.png" alt="Logo" class="logo">
   </header>
 
-  <!-- Main -->
   <main class="main-container">
-    <!-- Enlaces tipo tarjetas con imagen -->
     <section class="grid-enlaces">
-      <a href="/index.html" class="enlace">
+      <a href="../index.html" class="enlace">
         <span>Inicio</span>
-        <img src="/imagenes/logopng.png" alt="Imagen 1" class="img-hover">
+        <img src="../imagenes/logopng.png" alt="Imagen 1" class="img-hover">
       </a>
-      <a href="/archivos/mejoras.html" class="enlace">
+      <a href="./mejoras.html" class="enlace">
         <span>Mejorar Sitio</span>
-        <img src="/imagenes/enlace2.png" alt="Imagen 2" class="img-hover">
+        <img src="../imagenes/enlace2.png" alt="Imagen 2" class="img-hover">
       </a>
-      <a href="/archivos/pagrealizadas.html" class="enlace">
+      <a href="./pagrealizadas.html" class="enlace active">
         <span>Páginas realizadas</span>
-        <img src="/imagenes/enlace3.png" alt="Imagen 3" class="img-hover">
+        <img src="../imagenes/enlace3.png" alt="Imagen 3" class="img-hover">
       </a>
-      <a href="/archivos/contactos.html" class="enlace">
+      <a href="./contactos.html" class="enlace">
         <span>Contacto</span>
-        <img src="/imagenes/enlace4.png" alt="Imagen 4" class="img-hover">
+        <img src="../imagenes/enlace4.png" alt="Imagen 4" class="img-hover">
       </a>
-      <a href="/archivos/ayuda.html" class="enlace">
+      <a href="./ayuda.html" class="enlace">
         <span>Ayuda</span>
-        <img src="/imagenes/enlace5.png" alt="Imagen 5" class="img-hover">
+        <img src="../imagenes/enlace5.png" alt="Imagen 5" class="img-hover">
       </a>
     </section>
-
-    <!-- Intro / Texto extra -->
-    <section class="texto-extra">
-      <div class="card-trabajos">
-        <h2>...........</h2>
-        <p>
-          Explorá nuestros planes y ejemplos. Hacé clic en <strong>Ver página</strong> para navegar cada demo
-          o en <strong>Consultar</strong> para escribirnos por WhatsApp.
-        </p>
-      </div>
-    </section>
-
-    <!-- ======= CONTENIDO INTEGRADO DESDE plan1.html ======= -->
-
-    <!-- Plan principal -->
-    <section class="plan-card" aria-labelledby="plan-title">
-      <span class="badge">Plan</span>
-      <h1 id="plan-title" class="title">Landing Page Express</h1>
-      <p class="subtitle">Una página de aterrizaje rápida, clara y orientada a convertir.</p>
-
-      <div class="price" aria-label="Precio $25.000 ARS">
-        <span class="currency">$</span>
-        <span class="amount">25.000</span>
-        <span class="suffix">ARS</span>
-      </div>
-
-      <ul class="features">
-        <li>Sección única con hero, beneficios y CTA.</li>
-        <li>Botón a WhatsApp o formulario de contacto.</li>
-        <li>Diseño responsive (móvil, tablet y desktop).</li>
-        <li>SEO básico (título y descripción).</li>
-        <li>Integración de Analytics (opcional).</li>
-      </ul>
-
-      <div class="actions">
-        <a href="https://federicoleonelfigini.github.io/LandingPageExpress/" class="btn btn-primary">Ver página</a>
-        <a href="/archivos/contactos.html" class="btn btn-ghost">Consultar</a>
-      </div>
-
-      <p class="note">Precio inicial. Integraciones y personalizaciones adicionales se cotizan aparte.</p>
-    </section>
-
-    <!-- Otros planes (GRID + FLEXBOX) -->
-    <section class="otros-planes">
-      <h2 class="title-sm">Otros planes FigiKhan</h2>
-
-      <div class="plans-grid">
-        <!-- One Page Responsive -->
-        <article class="plan-mini">
-          <header class="mini-head">
-            <h3 class="mini-title">One Page Responsive</h3>
-            <span class="mini-badge">+ Secciones</span>
-          </header>
-
-          <ul class="mini-list">
-            <li>Estructura de una sola página con varias secciones (quién soy, servicios, trabajos, contacto).</li>
-            <li>Navegación suave por anclas, menú fijo.</li>
-            <li>Optimización móvil y performance base.</li>
-          </ul>
-
-          <div class="mini-price-row">
-            <span class="mini-price-label">Desde</span>
-            <div class="mini-price">
-              <span>$</span><strong>45.000</strong><span>ARS</span>
-            </div>
-          </div>
-
-          <div class="mini-actions">
-            <a href="https://federicoleonelfigini.github.io/Onepagee/" class="btn btn-primary">Ver página</a>
-            <a href="/archivos/contactos.html" class="btn btn-ghost">Consultar</a>
-          </div>
-        </article>
-
-        <!-- Maquetación HTML/SCSS -->
-        <article class="plan-mini">
-          <header class="mini-head">
-            <h3 class="mini-title">Maquetación HTML/SCSS</h3>
-            <span class="mini-badge">Código limpio</span>
-          </header>
-
-          <ul class="mini-list">
-            <li>Maquetado semántico desde diseño (Figma/Imagen).</li>
-            <li>SCSS modular, variables y mixins reutilizables.</li>
-            <li>Buenas prácticas de accesibilidad (AA).</li>
-          </ul>
-
-          <div class="mini-price-row">
-            <span class="mini-price-label">Desde</span>
-            <div class="mini-price">
-              <span>$</span><strong>60.000</strong><span>ARS</span>
-            </div>
-          </div>
-
-          <div class="mini-actions">
-            <a href="https://federicoleonelfigini.github.io/maquetacion/" class="btn btn-primary">Ver página</a>
-            <a href="/archivos/contactos.html" class="btn btn-ghost">Consultar</a>
-          </div>
-        </article>
-
-        <!-- UI Animada + Interacciones -->
-        <article class="plan-mini">
-          <header class="mini-head">
-            <h3 class="mini-title">UI Animada + Interacciones</h3>
-            <span class="mini-badge">WOW!</span>
-          </header>
-
-          <ul class="mini-list">
-            <li>Apariciones al scroll, sliders, micro-interacciones.</li>
-            <li>Animaciones suaves (rendimiento cuidado).</li>
-            <li>Señales claras para conversión (CTA visibles).</li>
-          </ul>
-
-          <div class="mini-price-row">
-            <span class="mini-price-label">Desde</span>
-            <div class="mini-price">
-              <span>$</span><strong>75.000</strong><span>ARS</span>
-            </div>
-          </div>
-
-          <div class="mini-actions">
-            <a href="https://federicoleonelfigini.github.io/uianimada/" class="btn btn-primary">Ver página</a>
-            <a href="/archivos/contactos.html" class="btn btn-ghost">Consultar</a>
-          </div>
-        </article>
-
-        <!-- Sitio Multipágina Básico -->
-        <article class="plan-mini">
-          <header class="mini-head">
-            <h3 class="mini-title">Sitio Multipágina Básico</h3>
-            <span class="mini-badge">Estructura</span>
-          </header>
-
-          <ul class="mini-list">
-            <li>Hasta 5 secciones en páginas separadas.</li>
-            <li>Menú, pie de página y plantillas coherentes.</li>
-            <li>SEO básico + Open Graph inicial.</li>
-          </ul>
-
-          <div class="mini-price-row">
-            <span class="mini-price-label">Desde</span>
-            <div class="mini-price">
-              <span>$</span><strong>95.000</strong><span>ARS</span>
-            </div>
-          </div>
-
-          <div class="mini-actions">
-            <a href="https://federicoleonelfigini.github.io/multipagina/" class="btn btn-primary">Ver página</a>
-            <a href="/archivos/contactos.html" class="btn btn-ghost">Consultar</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ======= FIN CONTENIDO INTEGRADO ======= -->
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 FigiKhan — Desarrollo web || <a href="/index.html" class="volver a Inicio">Volver a Inicio</a></p>
+    <p>© 2025 FigiKhan — <a href="../index.html">Volver a Inicio</a></p>
   </footer>
 </body>
 </html>
