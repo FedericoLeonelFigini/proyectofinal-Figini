@@ -3,9 +3,67 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ayuda • FigiKhan</title>
+
+  <title>Ayuda • Guías y Preguntas Frecuentes | FigiKhan</title>
+  <meta name="description" content="Centro de Ayuda: cómo navegar el sitio, qué hay en cada sección, preguntas frecuentes y consejos rápidos." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0d12" />
+
+  <link rel="canonical" href="https://federicoleonelfigini.github.io/TU_REPO/archivos/ayuda.html" />
+
+  <!-- OG/Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ayuda • Guías y Preguntas Frecuentes" />
+  <meta property="og:description" content="Guía rápida, FAQs y tips para moverte por el sitio FigiKhan." />
+  <meta property="og:url" content="https://federicoleonelfigini.github.io/TU_REPO/archivos/ayuda.html" />
+  <meta property="og:image" content="https://federicoleonelfigini.github.io/TU_REPO/imagenes/logopng.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="../imagenes/logopng.png" />
   <link rel="stylesheet" href="../estilos.css" />
+
+  <!-- JSON-LD: Breadcrumb + FAQPage (usa tus preguntas reales) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"BreadcrumbList",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Inicio","item":"https://federicoleonelfigini.github.io/TU_REPO/"},
+          {"@type":"ListItem","position":2,"name":"Ayuda","item":"https://federicoleonelfigini.github.io/TU_REPO/archivos/ayuda.html"}
+        ]
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"¿Cómo vuelvo al Inicio?",
+            "acceptedAnswer":{"@type":"Answer","text":"Usá la tarjeta “Inicio” o el enlace “Volver a Inicio” en el pie de página."}
+          },
+          {
+            "@type":"Question",
+            "name":"¿Cómo pido un presupuesto?",
+            "acceptedAnswer":{"@type":"Answer","text":"Entrá a Contacto y completá el formulario o escribinos. Indicá tipo de sitio y referencias visuales para agilizar."}
+          },
+          {
+            "@type":"Question",
+            "name":"¿Puedo ver trabajos antes de encargar?",
+            "acceptedAnswer":{"@type":"Answer","text":"Sí, revisá la sección Páginas realizadas donde hay demos con distintos estilos y complejidades."}
+          },
+          {
+            "@type":"Question",
+            "name":"¿No encuentro una sección?",
+            "acceptedAnswer":{"@type":"Answer","text":"Volvé al Inicio y usá las tarjetas o pedí orientación desde Contacto."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
+
 <body>
   <!-- Header -->
   <header class="site-header">
@@ -84,7 +142,7 @@
         <p class="muted">Entrá a <strong>Contacto</strong> y dejá tu consulta indicando tipo de sitio y referencias.</p>
 
         <h4 style="margin:.4rem 0 .2rem 0">¿Puedo ver trabajos antes de encargar?</h4>
-        <p class="muted">Sí, consultá <strong>Páginas realizadas</strong> para ver ejemplos.</p>
+        <p class="muted">Sí, consultá <strong>Servicio</strong> para ver ejemplos.</p>
 
         <h4 style="margin:.4rem 0 .2rem 0">¿No encuentro una sección?</h4>
         <p class="muted">Volvé a <strong>Inicio</strong> o pedí orientación desde <strong>Contacto</strong>.</p>
