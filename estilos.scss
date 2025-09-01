@@ -1,453 +1,255 @@
-/* Le presento el diseño scss de Federico Leonel Figini
-   FigiKhan • estilos.scss
-   Tema: dorado + fondo blanco, enlaces elegantes con imagen al hover
-   Archivos HTML cubiertos: index.html, ayuda.html, contactos.html,
-   mejoras.html, pagrealizadas.html
-   -----------------------------------------------------------
-   Animación de fondo (descripción):
-   Un brillo dorado MUY sutil (gradiente radial semitransparente) se
-   desplaza en diagonal por el fondo blanco en un ciclo lento. No hace
-   ruido visual: apenas aporta "vida" a la página.
-   - Implementación: pseudo-elemento fijo + @keyframes diagonal-sheen.
-   - Respetamos prefers-reduced-motion para accesibilidad.
-   ========================================================== */
+/* -----------------------------------------------------------
+   1) Tipografía exótica + variables de diseño
+   - Traemos Cinzel Decorative (aire imperial) y Inter de apoyo
+   - Definimos colores, radios, sombras, breakpoints y tamaño máximo
+----------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Inter:wght@400;600;800&display=swap");
 
-/* Variables de diseño */
-:root {
-  --gold: #c9a227;        /* Dorado principal */
-  --gold-veil: rgba(201,162,39,0.10); /* Dorado muy tenue para brillos */
-  --text: #1a1a1a;        /* Texto principal */
-  --muted: #6b7280;       /* Texto secundario */
-  --bg: #ffffff;          /* Fondo blanco (lo modifique directamente del css a un tono mas gris)*/
-  --card: #fafafa;        /* Tarjetas suaves */
-  --border: #e5e7eb;      /* Líneas */
-  --radius: 14px;
-  --shadow: 0 8px 24px rgba(0,0,0,.08);
-  --header-h: 96px;
-}
+$gold: #d4af37;
+$gold-strong: #e8c657;
+$ink: #0a0d12;            // negro azulado profundo
+$panel: #121623;          // panel oscuro
+$card: #0f1420;           // tarjetas
+$text: #eef2f7;
+$muted: #aab3c2;
 
-/* Tipografía: “imprenta minúscula” (no forzamos mayúsculas) */
-$font-stack: "Inter", "Poppins", "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+$radius: 18px;
+$shadow: 0 16px 50px rgba(0,0,0,.45);
+$maxw: 1200px;
 
-/* Breakpoints */
-$sm: 480px;
-$md: 768px;
-$lg: 1024px;
+$bp-md: 992px;
+$bp-sm: 768px;
+$bp-xs: 480px;
 
-/* Utilidad de contenedor */
-@mixin container {
-  width: min(1200px, 92%);
-  margin-inline: auto;
-}
-
-/* Reset breve */
+/* -----------------------------------------------------------
+   2) Reset básico + fondo con brillo dorado (gradientes radiales)
+   - Base legible y contraste alto
+----------------------------------------------------------- */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-body {
+body{
   margin: 0;
-  font-family: $font-stack;
-  color: var(--text);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-/* Fondo animado sutil
-   - Pseudo-elemento fijo que crea un resplandor dorado muy tenue.
-   - Se mueve en diagonal con un ciclo largo (30s).
-   - Si el usuario prefiere menos movimiento, se desactiva.
-*/
-body::before {
-  content: "";
-  position: fixed;
-  inset: -20% -20%;/* más grande que la ventana */
-  pointer-events: none;
+  color: $text;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:
-    radial-gradient(30% 30% at 30% 30%, var(--gold-veil), transparent 60%) ,
-    radial-gradient(22% 22% at 80% 10%, rgba(201,162,39,0.06), transparent 55%);
-  animation: diagonal-sheen 30s linear infinite;
-  z-index: 0;/* por detrás del contenido */
+    radial-gradient(1200px 700px at 15% -10%, rgba(212,175,55,.18), transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, rgba(255,255,255,.08), transparent 40%),
+    $ink;
 }
-@keyframes diagonal-sheen {
-  0%   { transform: translate3d(-6%, -6%, 0) rotate(0.001deg); }
-  50%  { transform: translate3d( 6%,  6%, 0) rotate(0.001deg); }
-  100% { transform: translate3d(-6%, -6%, 0) rotate(0.001deg); }
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+
+/* -----------------------------------------------------------
+   3) Utilidades de layout (contenedor y secciones)
+   - Estandarizamos padding horizontal y ancho máximo
+----------------------------------------------------------- */
+.container{ max-width: $maxw; margin: 0 auto; padding: 0 20px; }
+.section{ padding: clamp(20px, 2vw, 36px) 0; }
+
+/* -----------------------------------------------------------
+   4) Títulos con tipografía exótica (Cinzel Decorative)
+   - Jerarquía visual con sombras y tracking sutil
+----------------------------------------------------------- */
+.title-xl{
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+  letter-spacing: .6px;
+  color: $gold;
+  text-shadow: 0 0 24px rgba(212,175,55,.28);
+  margin: 10px 0 6px;
 }
-/* Accesibilidad: respeta usuarios con reducción de movimiento */
-@media (prefers-reduced-motion: reduce) {
-  body::before { animation: none; }
+.title-md{
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 1rem + .9vw, 1.8rem);
+  color: $gold-strong;
+  margin: 10px 0 8px;
 }
 
-/* Links base */
-a {
-  color: var(--text);
-  text-decoration: none;       
-  text-transform: none;        
+/* -----------------------------------------------------------
+   5) Header brillante y transparente
+   - Sticky + blur + logo a la izquierda
+   - Navegación con separadores | y efectos de hover
+----------------------------------------------------------- */
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  background: linear-gradient(180deg, rgba(0,0,0,.38), rgba(0,0,0,.12));
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
-a:focus-visible {
-  outline: 3px solid var(--gold);
-  outline-offset: 2px;
-}
-
-/*  Header (imagen del logo centrada) */
-.site-header {
-  height: var(--header-h);
-  display: grid;
-  place-items: center;
-  background: #fff;
-  border-bottom: 1px solid var(--border);
+.navbar{
+  min-height: 76px; display: flex; align-items: center; gap: 18px;
   position: relative;
-  z-index: 1; /* por encima del brillo del fondo */
-
-  .logo {
-    max-height: calc(var(--header-h) - 24px);
-    width: auto;
-    display: block;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,.05));
-  }
 }
+.logo{
+  height: 52px; width: auto;
+  filter: drop-shadow(0 3px 10px rgba(0,0,0,.5));
+}
+.brand{
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900; color: $gold;
+  text-shadow: 0 0 18px rgba(212,175,55,.35);
+}
+.nav-links{
+  margin-left: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 0;
 
-/*  Contenedor principal */
-.main-container { @include container; padding-block: 28px; position: relative; z-index: 1; }
+  a{
+    display: inline-flex; align-items: center;
+    padding: 10px 16px; font-weight: 600; letter-spacing: .2px;
+    color: rgba(255,255,255,.95);
+    transition: color .25s ease, transform .2s ease, text-shadow .25s ease;
 
-/* ==========================================================
-   ENLACES (tarjetas): usado en todas las páginas
-   ----------------------------------------------------------
-   - Más bonitos y compactos.
-   - Imagen oculta por defecto; aparece SOLO al hover/focus.
-   - Efectos suaves: elevación, borde dorado y micro-zoom.
-   - En móvil (touch), mostramos imagen al tocar (estado :active).
-   ========================================================== */
-.grid-enlaces {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* más pequeñas */
-  gap: 14px;
-  margin-bottom: 28px;
-
-  .enlace {
-    position: relative;
-    isolation: isolate; /* para pseudo-elementos */
-    display: grid;
-    grid-template-rows: auto auto;
-    place-items: center;
-    gap: 8px;
-    padding: 16px 12px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    text-align: center;
-
-    /* Pequeño brillo al pasar mouse: borde decorativo desde las esquinas */
-    &::before, &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      transition: opacity .2s ease;
-      opacity: 0;
-    }
-    &::before {
-      background:
-        linear-gradient(45deg, rgba(201,162,39,.20), transparent 40%) top left / 50% 50% no-repeat,
-        linear-gradient(-45deg, rgba(201,162,39,.18), transparent 40%) top right / 50% 50% no-repeat,
-        linear-gradient(135deg, rgba(201,162,39,.18), transparent 40%) bottom left / 50% 50% no-repeat,
-        linear-gradient(-135deg, rgba(201,162,39,.20), transparent 40%) bottom right / 50% 50% no-repeat;
+    &:hover{
+      color: $gold;
+      transform: translateY(-1px);
+      text-shadow: 0 0 14px rgba(212,175,55,.45);
     }
 
-    span {
-      font-size: .95rem;
-      font-weight: 600;
-      letter-spacing: .2px;
-      color: var(--text);
-    }
-
-    /* Imagen oculta por defecto */
-    .img-hover {
-      width: 68px;
-      height: 68px;
-      object-fit: contain;
-      opacity: 0;
-      transform: translateY(6px) scale(.94);
-      transition: opacity .2s ease, transform .2s ease;
-      will-change: transform, opacity;
-    }
-
-    /* Interacciones: hover/focus/active muestran la imagen */
-    &.active,
-    &:hover,
-    &:focus-visible,
-    &:active {
-      border-color: var(--gold);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(201,162,39,.20);
-
-      &::before { opacity: 1; }   /* enciende el “borde de luz” */
-      .img-hover {
-        opacity: 1;
-        transform: translateY(0) scale(1.00);
+    /* Separador visual | entre enlaces */
+    & + a{
+      position: relative; margin-left: 12px; padding-left: 22px;
+      &::before{
+        content: "|"; position: absolute; left: 0; top: 50%;
+        transform: translateY(-50%); color: rgba(255,255,255,.35);
       }
     }
   }
 }
 
-/* Promo (index.html) */
-.promo {
-  @include container;
-  margin-bottom: 28px;
+/* -----------------------------------------------------------
+   6) Botones dorados
+   - Botón sólido y fantasma para CTAs
+----------------------------------------------------------- */
+.btn{
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 18px; border-radius: 999px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,.14);
+  background: transparent; color: $text;
+  transition: transform .15s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+  &:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.35); }
+}
+.btn-primary{
+  @extend .btn;
+  background: linear-gradient(135deg, rgba(212,175,55,.25), rgba(212,175,55,.05));
+  border-color: rgba(212,175,55,.5);
+  &:hover{ background: linear-gradient(135deg, rgba(212,175,55,.35), rgba(212,175,55,.12)); box-shadow: 0 0 28px rgba(212,175,55,.25); }
+}
+.btn-ghost{ @extend .btn; }
 
-  .promo-img {
-    width: 100%;
-    height: clamp(180px, 28vw, 360px);
-    object-fit: cover;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
+/* -----------------------------------------------------------
+   7) Tarjetas genéricas (cards)
+   - Base visual para “Planes” y “Mejoras”
+----------------------------------------------------------- */
+.card{
+  background: $card; border: 1px solid rgba(255,255,255,.08);
+  border-radius: $radius; box-shadow: $shadow; padding: 18px;
+}
+
+/* -----------------------------------------------------------
+   8) Grids reutilizables
+   - Distribución fluida con auto-fit
+----------------------------------------------------------- */
+.grid{
+  display: grid; gap: 18px;
+  &.cols-auto{ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  &.cols-wide{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+}
+
+/* -----------------------------------------------------------
+   9) Sección Planes (index)
+   - Título exótico + tarjetas en grid
+----------------------------------------------------------- */
+.planes{
+  @extend .section;
+  .planes-title{ @extend .title-xl; }
+  .planes-grid{ @extend .grid, .cols-auto; }
+
+  .plan-card{
+    @extend .card;
+    display: flex; flex-direction: column; gap: 10px;
+    h3{ @extend .title-md; margin-top: 0; }
+    ul{ margin: 2px 0 12px 18px; color: $muted; li{ margin: 6px 0; } }
+    .btn{ align-self: start; }
   }
 }
 
-/* Planes (index.html) y tarjetas generales */
-.planes {
-  .planes-title {
-    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
-    margin: 6px 0 16px;
-    color: var(--text);
+/* -----------------------------------------------------------
+   10) Tarjetas de “Mejorar Sitio”
+   - Columnas responsivas con imágenes consistentes
+----------------------------------------------------------- */
+.tarjetas-mejoras{
+  @extend .section; @extend .grid; @extend .cols-auto;
+
+  .tarjeta{
+    @extend .card; text-align: center;
+    img{ height: 120px; width: auto; margin: 6px auto 10px; object-fit: contain; }
+    h3{ @extend .title-md; margin: 6px 0 2px; }
+    p{ margin: 0; color: $gold; font-weight: 800; }
   }
+}
 
-  .planes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
+/* -----------------------------------------------------------
+   11) Enlaces tipo tarjeta (contactos / accesos rápidos)
+   - Hover con zoom suave de imagen de fondo
+----------------------------------------------------------- */
+.grid-enlaces{
+  @extend .section; @extend .grid; @extend .cols-auto;
 
-  .plan-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    box-shadow: var(--shadow);
-    display: grid;
-    gap: 10px;
-
-    h3 { margin: 0; font-size: 1.08rem; }
-    ul { margin: 0; padding-left: 18px; color: var(--muted); }
-    li { margin: 4px 0; }
-
-    .btn-vermas {
-      justify-self: start;
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--gold);
-      color: var(--text);
-      background: linear-gradient(180deg, #fff, #fff);
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-
-      &:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(201,162,39,.25); background: #fff7da; }
-      &:active { transform: translateY(0); }
+  .enlace{
+    position: relative; overflow: hidden;
+    background: $panel; border: 1px solid rgba(255,255,255,.08);
+    border-radius: $radius; box-shadow: $shadow;
+    min-height: 160px; display: flex; align-items: center; justify-content: center;
+    span{ position: relative; z-index: 1; font-weight: 800; }
+    .img-hover{
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: .12; transition: opacity .25s ease, transform .25s ease;
     }
+    &:hover .img-hover{ opacity: .22; transform: scale(1.04); }
   }
 }
 
-/* Paginas realizadas (plan grande + minis) */
-.plan-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: clamp(16px, 2.2vw, 22px);
-  box-shadow: var(--shadow);
-  margin-bottom: 22px;
+/* -----------------------------------------------------------
+   12) Footer simple + acento dorado
+----------------------------------------------------------- */
+.site-footer{
+  margin-top: 40px; padding: 26px 16px; text-align: center;
+  color: $muted; border-top: 1px solid rgba(255,255,255,.08);
+  a{ color: $gold; font-weight: 700; }
+}
 
-  .badge {
-    display: inline-block;
-    font-size: .8rem;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: #fff7da;
-    border: 1px solid var(--gold);
-    color: var(--text);
-  }
-
-  .title { margin: 10px 0 6px; font-size: clamp(1.2rem, 3vw, 1.8rem); }
-  .subtitle { margin: 0 0 10px; color: var(--muted); }
-
-  .price {
-    display: inline-flex; align-items: baseline; gap: 6px; margin: 6px 0 10px;
-    .currency { color: var(--gold); font-weight: 700; }
-    .amount { font-size: 1.6rem; font-weight: 800; }
-    .suffix { color: var(--muted); font-weight: 600; }
-  }
-
-  .features { margin: 10px 0; padding-left: 18px; color: var(--muted); }
-
-  .actions {
-    display: flex; gap: 8px; flex-wrap: wrap;
-
-    .btn {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
-
-      &.btn-primary {
-        border-color: var(--gold);
-        background: linear-gradient(180deg, #fff7da, #ffe9a8);
-        &:hover { box-shadow: 0 10px 24px rgba(201,162,39,.25); transform: translateY(-1px); }
-      }
-      &.btn-ghost {
-        background: #fff;
-        &:hover { background: #fff7da; border-color: var(--gold); }
-      }
-    }
+/* -----------------------------------------------------------
+   13) Animación “brillo barrido” (útil para títulos/links)
+   - Úsalo agregando .shimmer al título o enlace
+----------------------------------------------------------- */
+@keyframes sweep {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+.shimmer{
+  position: relative; overflow: hidden;
+  &::before{
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.18) 20%, transparent 40%);
+    animation: sweep 1.6s ease-in-out infinite;
   }
 }
 
-/* Otros planes mini (pagrealizadas.html) */
-.otros-planes {
-  .title-sm { font-size: 1.08rem; margin: 10px 0 14px; }
-  .plans-grid {
-    display: grid;
-    gap: 14px;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
+/* -----------------------------------------------------------
+   14) Responsive
+   - Ajustes de header y grids en móviles
+----------------------------------------------------------- */
+@media (max-width: $bp-sm){
+  .navbar{ min-height: 64px; gap: 12px; }
+  .logo{ height: 44px; }
+  .nav-links a{ padding: 8px 12px; font-size: .95rem; }
+  .nav-links a + a{ margin-left: 6px; padding-left: 16px; }
 
-  .plan-mini {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    box-shadow: var(--shadow);
-    display: grid;
-    gap: 10px;
-
-    .mini-head {
-      display: flex; align-items: center; justify-content: space-between;
-      .mini-title { margin: 0; font-size: 1.02rem; }
-      .mini-badge {
-        border: 1px solid var(--gold);
-        background: #fff7da;
-        border-radius: 999px;
-        padding: 2px 8px; font-size: .8rem;
-      }
-    }
-
-    .mini-list { margin: 0; padding-left: 18px; color: var(--muted); }
-
-    .mini-price-row {
-      display: flex; align-items: baseline; gap: 8px; color: var(--muted);
-      .mini-price { font-weight: 800; }
-    }
-
-    .mini-actions {
-      display: flex; gap: 8px; flex-wrap: wrap;
-
-      .btn {
-        display: inline-block;
-        padding: 8px 12px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        &.btn-primary {
-          border-color: var(--gold);
-          background: linear-gradient(180deg, #fff7da, #ffe9a8);
-        }
-        &.btn-ghost { background: #fff; }
-      }
-    }
-  }
+  .grid.cols-auto{ grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .grid.cols-wide{ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 }
-
-/* Ayuda (toc + bloques) */
-.ayuda {
-  display: grid;
-  gap: 16px;
-
-  .ayuda-header p { color: var(--muted); }
-
-  .toc {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    box-shadow: var(--shadow);
-
-    h3 { margin: 0 0 8px; }
-    ul { margin: 0; padding-left: 18px; }
-    a { color: var(--text); }
-    a:hover { color: var(--gold); }
-  }
-
-  .ayuda-bloque {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-
-    h3 { margin-top: 0; }
-    .badge {
-      display: inline-block; margin-right: 8px;
-      border: 1px solid var(--gold); background: #fff7da; border-radius: 999px; padding: 2px 8px;
-      font-size: .8rem;
-    }
-    .tip { color: var(--muted); }
-  }
-}
-
-/*  Mejoras (tarjetas con precio) */
-.tarjetas-mejoras {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-
-  .tarjeta {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-
-    img { width: 66px; height: 66px; object-fit: contain; margin-bottom: 8px; }
-    h3 { margin: 6px 0 4px; }
-    p { margin: 0; font-weight: 800; color: var(--gold); }
-
-    &:hover { transform: translateY(-2px); border-color: var(--gold); box-shadow: 0 10px 24px rgba(201,162,39,.22); }
-  }
-}
-
-/* Texto extra / tarjetas genéricas */
-.texto-extra .card-trabajos {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  box-shadow: var(--shadow);
-}
-
-/* Footer */
-.site-footer {
-  margin-top: 32px;
-  padding: 20px 0;
-  border-top: 1px solid var(--border);
-  background: #fff;
-  text-align: center;
-  color: var(--muted);
-
-  a.volver { color: var(--text); border-bottom: 1px dashed var(--gold); }
-}
-
-/* Responsive */
-@media (min-width: $sm) {
-  .grid-enlaces { gap: 16px; }
-}
-@media (min-width: $md) {
-  .planes .planes-grid { gap: 18px; }
-}
-@media (min-width: $lg) {
-  .main-container { padding-block: 36px; }
-  .grid-enlaces { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+@media (max-width: $bp-xs){
+  .nav-links{ width: 100%; justify-content: space-between; }
+  .nav-links a{ padding: 8px 8px; font-size: .9rem; }
 }

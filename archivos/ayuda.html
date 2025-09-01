@@ -3,120 +3,116 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mi Sitio - Ayuda</title>
-  <link rel="stylesheet" href="../estilos.css">
+  <title>Ayuda • FigiKhan</title>
+  <link rel="stylesheet" href="../estilos.css" />
 </head>
 <body>
   <!-- Header -->
   <header class="site-header">
-    <img src="../imagenes/logopng.png" alt="Logo" class="logo">
+    <div class="navbar container">
+      <img src="../imagenes/logopng.png" alt="FigiKhan" class="logo" />
+      <a href="../index.html" class="brand" aria-label="FigiKhan">FigiKhan</a>
+      <nav class="nav-links">
+        <a href="../index.html">Inicio</a>
+        <a href="./mejoras.html">Optimizar</a>
+        <a href="./contactos.html">Contacto</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- Main -->
-  <main class="main-container">
-    <!-- Enlaces tipo tarjetas con imagen -->
-    <section class="grid-enlaces">
-      <a href="../index.html" class="enlace">
-        <span>Inicio</span>
-        <img src="../imagenes/logopng.png" alt="Imagen 1" class="img-hover">
-      </a>
-      <a href="./mejoras.html" class="enlace">
-        <span>Mejorar Sitio</span>
-        <img src="../imagenes/enlace2.png" alt="Imagen 2" class="img-hover">
-      </a>
-      <a href="./pagrealizadas.html" class="enlace">
-        <span>Páginas realizadas</span>
-        <img src="../imagenes/enlace3.png" alt="Imagen 3" class="img-hover">
-      </a>
-      <a href="./contactos.html" class="enlace">
-        <span>Contacto</span>
-        <img src="../imagenes/enlace4.png" alt="Imagen 4" class="img-hover">
-      </a>
-      <a href="./ayuda.html" class="enlace active">
-        <span>Ayuda</span>
-        <img src="../imagenes/enlace5.png" alt="Imagen 5" class="img-hover">
-      </a>
+  <main>
+    <!-- Hero / Introducción -->
+    <section class="section container">
+      <h1 class="title-xl shimmer">Centro de Ayuda</h1>
+      <p class="muted">
+        Encontrá una guía rápida, preguntas frecuentes y tips para moverte por el sitio sin perder tiempo.
+      </p>
     </section>
 
-    <!-- Sección de Ayuda -->
-    <section class="ayuda">
-      <header class="ayuda-header">
-        <h2>Centro de Ayuda</h2>
-        <p>En esta sección encontrarás una guía rápida para orientarte dentro del sitio, respuestas a dudas frecuentes y consejos para que encuentres lo que buscás en pocos pasos.</p>
-      </header>
-
-      <!-- Índice -->
-      <nav class="toc" aria-label="Índice de ayuda">
-        <h3>Índice</h3>
-        <ul>
+    <!-- Índice -->
+    <section class="section container">
+      <div class="card">
+        <h2 class="title-md" style="margin-top:0">Índice</h2>
+        <ul style="margin-left:18px">
           <li><a href="#como-navegar">¿Cómo navegar por el sitio?</a></li>
           <li><a href="#que-encontrar">¿Qué puedo encontrar en cada sección?</a></li>
           <li><a href="#preguntas-frecuentes">Preguntas frecuentes</a></li>
           <li><a href="#consejos-rapidos">Consejos rápidos</a></li>
           <li><a href="#necesitas-mas-ayuda">¿Necesitás más ayuda?</a></li>
         </ul>
-      </nav>
+      </div>
+    </section>
 
-      <article id="como-navegar" class="ayuda-bloque">
-        <h3>¿Cómo navegar por el sitio?</h3>
-        <p>En la parte superior tenés un encabezado con el logo y, debajo, una grilla de accesos rápidos a las secciones principales. Cada tarjeta muestra el nombre de la sección y una imagen de referencia.</p>
-        <p>Hacé clic en la tarjeta correspondiente para ingresar. En móviles, todo está optimizado para que los botones sean grandes y fáciles de tocar.</p>
-      </article>
+    <!-- Bloques de ayuda -->
+    <section class="section container" id="como-navegar">
+      <div class="card">
+        <h2 class="title-md" style="margin-top:0">¿Cómo navegar por el sitio?</h2>
+        <p class="muted">
+          En la parte superior tenés un encabezado con el logo y un menú. En móviles, todo es táctil y legible.
+        </p>
+      </div>
+    </section>
 
-      <article id="que-encontrar" class="ayuda-bloque">
-        <h3>¿Qué puedo encontrar en cada sección?</h3>
+    <section class="section container" id="que-encontrar">
+      <div class="card">
+        <h2 class="title-md" style="margin-top:0">¿Qué puedo encontrar en cada sección?</h2>
+        <h3 class="title-md" style="margin-top:6px">Inicio</h3>
+        <p class="muted">Portada con accesos a todas las secciones y novedades.</p>
 
-        <h4>Inicio</h4>
-        <p>Es la portada del sitio. Desde aquí podés acceder a todas las secciones. También vas a ver novedades y accesos directos importantes.</p>
+        <h3 class="title-md" style="margin-top:6px">Optimizar</h3>
+        <p class="muted">Ideas y optimizaciones del sitio con Backend.</p>
 
-        <h4>Mejorar Sitio</h4>
-        <p>Si ya tenés una web y querés potenciarla, esta sección reúne ideas, ajustes de diseño, rendimiento y SEO. Es ideal para pedir <em>tuning</em> visual o técnico.</p>
+        <h3 class="title-md" style="margin-top:6px">Servicio</h3>
+        <p class="muted">Galería de paginas y estilos aplicados para tu imaginacion.</p>
 
-        <h4>Páginas realizadas</h4>
-        <p>Un muestrario de proyectos terminados. Sirve para inspirarte y ver estilos, estructuras y soluciones aplicadas en otros trabajos.</p>
+        <h3 class="title-md" style="margin-top:6px">Contacto</h3>
+        <p class="muted">Formulario y datos de contacto para presupuestos o consultas.</p>
 
-        <h4>Contacto</h4>
-        <p>Formulario y datos para comunicarte. Si tenés un pedido específico, presupuesto o consulta rápida, es el lugar indicado.</p>
+        <h3 class="title-md" style="margin-top:6px">Ayuda</h3>
+        <p class="muted">Esta misma pagina.</p>
+      </div>
+    </section>
 
-        <h4>Ayuda</h4>
-        <p>La sección en la que estás ahora: guía, preguntas frecuentes y tips para que encuentres lo que buscás sin perder tiempo.</p>
-      </article>
+    <section class="section container" id="preguntas-frecuentes">
+      <div class="card">
+        <h2 class="title-md" style="margin-top:0">Preguntas frecuentes</h2>
 
-      <article id="preguntas-frecuentes" class="ayuda-bloque">
-        <h3>Preguntas frecuentes</h3>
+        <h4 style="margin:.4rem 0 .2rem 0">¿Cómo vuelvo al Inicio?</h4>
+        <p class="muted">Usá el menú superior o el enlace “Volver a Inicio” del pie de página.</p>
 
-        <h4>¿Cómo vuelvo al Inicio?</h4>
-        <p>Podés usar la tarjeta “Inicio” en la grilla superior o el enlace “Volver a Inicio” del pie de página.</p>
+        <h4 style="margin:.4rem 0 .2rem 0">¿Cómo pido un presupuesto?</h4>
+        <p class="muted">Entrá a <strong>Contacto</strong> y dejá tu consulta indicando tipo de sitio y referencias.</p>
 
-        <h4>¿Cómo pido un presupuesto?</h4>
-        <p>Entrá a <strong>Contacto</strong> y completá el formulario. Si querés agilizar, indicá el tipo de sitio (por ejemplo: landing, multipágina) y referencias visuales.</p>
+        <h4 style="margin:.4rem 0 .2rem 0">¿Puedo ver trabajos antes de encargar?</h4>
+        <p class="muted">Sí, consultá <strong>Páginas realizadas</strong> para ver ejemplos.</p>
 
-        <h4>¿Puedo ver trabajos antes de encargar?</h4>
-        <p>Sí. En <strong>Páginas realizadas</strong> tenés ejemplos con diferentes estilos y complejidades.</p>
+        <h4 style="margin:.4rem 0 .2rem 0">¿No encuentro una sección?</h4>
+        <p class="muted">Volvé a <strong>Inicio</strong> o pedí orientación desde <strong>Contacto</strong>.</p>
+      </div>
+    </section>
 
-        <h4>¿Qué pasa si no encuentro una sección?</h4>
-        <p>Volvé a <strong>Inicio</strong> y usá las tarjetas. También podés pedir orientación desde <strong>Contacto</strong>.</p>
-      </article>
+    <section class="section container" id="consejos-rapidos">
+      <div class="card">
+        <h2 class="title-md" style="margin-top:0">Consejos rápidos</h2>
+        <p class="muted"><strong class="brand">TIP</strong> En celular, usá scroll y tocá la tarjeta deseada.</p>
+        <p class="muted"><strong class="brand">TIP</strong> Guardá en Favoritos las secciones que más uses.</p>
+        <p class="muted"><strong class="brand">TIP</strong> Si algo no carga, actualizá la página y probá de nuevo.</p>
+      </div>
+    </section>
 
-      <article id="consejos-rapidos" class="ayuda-bloque">
-        <h3>Consejos rápidos</h3>
-        <p class="tip"><span class="badge">TIP</span> Si navegás desde el celular, desplazate con el dedo y tocá la tarjeta deseada. Todo está optimizado para pantallas táctiles.</p>
-        <p class="tip"><span class="badge">TIP</span> Guardá <em>Favoritos</em> con las secciones que más uses (por ejemplo, “Mejorar Sitio”).</p>
-        <p class="tip"><span class="badge">TIP</span> Si algo no carga, actualizá la página. Si persiste, avisá desde <strong>Contacto</strong>.</p>
-      </article>
-
-      <article id="necesitas-mas-ayuda" class="ayuda-bloque">
-        <h3>¿Necesitás más ayuda?</h3>
-        <p>Si tu consulta es específica, escribinos desde la sección <a href="./contactos.html">Contacto</a>. Contanos el problema y, si podés, agregá capturas o links.</p>
-      </article>
+    <section class="section container" id="necesitas-mas-ayuda">
+      <div class="card">
+        <h2 class="title-md" style="margin-top:0">¿Necesitás más ayuda?</h2>
+        <p class="muted">
+          Si tu consulta es específica, escribinos desde <a href="./contactos.html">Contacto</a>.
+          Contanos el problema y, si podés, agregá capturas o links.
+        </p>
+      </div>
     </section>
   </main>
 
-  <!-- Footer -->
   <footer class="site-footer">
-    <p>© 2025 FigiKhan — Desarrollo web ||
-      <a href="../index.html" class="volver">Volver a Inicio</a>
-    </p>
+    <p>© 2025 FigiKhan — Desarrollo web || <a href="../index.html">Volver a Inicio</a></p>
   </footer>
 </body>
 </html>
